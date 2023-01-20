@@ -1,0 +1,64 @@
+/** @format */
+
+// import { useSSRSafeId } from "@react-aria/ssr";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getVideoByCategory } from "../../redux/actions/video_action";
+import "./_categoriesBar.scss"
+
+const CateogariesBar = () => {
+
+  const categoriesList = [
+    "all",
+    "React.js",
+    "Songs",
+    "Fav Songs",
+    "Lectures",
+    "Movies",
+    "Series",
+    "Liked",
+    "React.js",
+    "Songs",
+    "Fav Songs",
+    "Lectures",
+    "Movies",
+    "Series",
+    "Liked",
+    "Lectures",
+    "Movies",
+    "Series",
+    "Liked",
+    "React.js",
+    "Songs",
+    "Fav Songs",
+    "Lectures",
+    "Movies",
+    "Series",
+    "Liked",
+    
+  ];
+
+   const dispatch =  useDispatch();
+
+   const [activeElement, setActiveElement]= useState("All");
+const handelClick = (val)=>{
+  setActiveElement(val);
+  dispatch(getVideoByCategory(val))
+  console.log(val)
+}
+
+  return (<div className="categoriesBar">
+{
+  categoriesList.map((value ,i)=>{
+    return (<span key={i}
+    onClick={()=>handelClick(value)}
+    className={activeElement=== value?'active':""}
+    >
+      {" "+value+" "}
+    </span>)
+  })
+}
+  </div>);
+};
+
+export default CateogariesBar;
