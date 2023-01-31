@@ -6,7 +6,7 @@ import { Container } from "react-bootstrap";
 import HomeScreen from "./screen/homeScreen/HomeScreen";
 import Sidebar from "./component/sidebar/Sidebar";
 import "./_app.scss";
-import LoginScreen from "./screen/homeScreen/loginScreen/LoginScreen";
+import LoginScreen from "./screen/loginScreen/LoginScreen";
 
 import {
   BrowserRouter as Router,
@@ -15,6 +15,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { useSelector } from "react-redux";
+import WatchScreen from "./screen/watchScreen/WatchScreen";
 
 const Layout = ({ children }) => {
   const [sidebar, setToggelSidebar] = useState(false);
@@ -65,6 +66,15 @@ function App() {
         element={
           <Layout>
             <HomeScreen />
+          </Layout>
+        }
+      />
+      <Route
+       exact
+        path="/watch/:id"
+        element={
+          <Layout>
+            <WatchScreen />
           </Layout>
         }
       />
