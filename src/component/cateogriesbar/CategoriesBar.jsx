@@ -9,7 +9,7 @@ import "./_categoriesBar.scss"
 const CateogariesBar = () => {
 
   const categoriesList = [
-    "all",
+    "All",
     "React.js",
     "Songs",
     "Fav Songs",
@@ -17,11 +17,11 @@ const CateogariesBar = () => {
     "Movies",
     "Series",
     "Liked",
-    "React.js",
-    "Songs",
-    "Fav Songs",
-    "Lectures",
-    "Movies",
+    "Node.js",
+    "Pujabi songs",
+    "Firebase",
+    "Mysql",
+    "Sql",
     "Series",
     "Liked",
     "Lectures",
@@ -41,9 +41,16 @@ const CateogariesBar = () => {
    const dispatch =  useDispatch();
 
    const [activeElement, setActiveElement]= useState("All");
+
 const handelClick = (val)=>{
   setActiveElement(val);
-  dispatch(getVideoByCategory(val))
+  if(val==="All"){
+    console.log(val)
+  dispatch(getVideoByCategory(val))}
+  else{
+    console.log(val)
+    dispatch(getVideoByCategory(val))
+  }
   console.log(val)
 }
 

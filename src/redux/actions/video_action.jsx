@@ -1,7 +1,7 @@
 import request from "../../api"
 import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS } from "../actionType"
 
-const getPopulerVideo = ()=> async dispatch=>{
+const getPopulerVideo = ()=> async (dispatch,getState)=>{
 try {
     dispatch({
         type:HOME_VIDEOS_REQUEST
@@ -13,7 +13,7 @@ try {
         chart:"mostPopular",
         regionCode:"IN",
         maxResults:20,
-        pageToken: '',
+        pageToken: getState().homeVideos.nextPageToken,
     },
    })
 
@@ -25,7 +25,7 @@ dispatch({
     payload:{
         videos:videoData,
         nextPageToken:res.data.nextPageToken,
-        category:"all"
+        category:"All"
     }
 })
 } catch (error) {
@@ -49,7 +49,7 @@ export const getVideoByCategory = (keyword)=> async (dispatch,getState)=>{
         });
 
         // console.log(getState().homeVideos.nextPageToken)
-        
+        console.log(keyword)
        const res = await request("/search",{
         params:{
             part:"snippet",

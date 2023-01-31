@@ -6,6 +6,8 @@
 
     display: flex;
     overflow-x: scroll;
+    
+  
 
     &::-webkit-scrollbar{
         width: 0px;
@@ -23,6 +25,12 @@
     
 
     &:hover{
+        background-color: #606060;
+       
+    }
+
+    &.active{
+        color: #fff;
         background-color: #606060;
         border-color: $border-color;
     }

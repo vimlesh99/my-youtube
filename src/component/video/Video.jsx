@@ -6,6 +6,10 @@ import React, { useEffect, useState } from "react";
 import { AiFillEye } from "react-icons/ai";
 import request from "../../api";
 import "./_videos.scss";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+
+
 const Video = ({ video }) => {
   const {
     id,
@@ -19,11 +23,7 @@ const Video = ({ video }) => {
   } = video;
 
 
-  // if(typeof(id)==String){
-  //   return id = id;
-  // }else{
-  //   id=id.videoId;
-  // }
+ 
 
 const [views, setViews] = useState(null);
 const [duration,setDuration] = useState(null);
@@ -41,14 +41,13 @@ const videoId = id?.videoId||id
       } = await request("/videos", {
         params: {
           part: "contentDetails,statistics",
-          // id: typeof(id)==String?id:id.videoId,
           id:videoId
         },
       });
     
       setDuration( items[0].contentDetails.duration);
       setViews(items[0].statistics.viewCount)
-      console.log(items);
+      // console.log(items);
     };
 
     get_video_details();
@@ -68,7 +67,7 @@ const videoId = id?.videoId||id
    
 setChannelIcon(items[0].snippet.thumbnails.default)
 
-      console.log(items);
+      // console.log(items);
     };
     
     get_Channel_Icon();
@@ -77,11 +76,13 @@ setChannelIcon(items[0].snippet.thumbnails.default)
   return (
     <div className="video">
       <div className="video__top">
-        <img
+        {/* <img
           src={medium.url}
           alt="video"
-        />
-        <span>{_duration}</span>
+        /> */}
+        <LazyLoadImage  src={medium.url}
+          alt="video" effect="blur" />
+        <span className="video__top__duration">{_duration}</span>
       </div>
       <div className="video__title"> {title}</div>
       <div className="video__details">
@@ -92,10 +93,12 @@ setChannelIcon(items[0].snippet.thumbnails.default)
         <span>{" "+ moment(publishedAt).fromNow()}</span>
       </div>
       <div className="video__channel">
-        <img
+        {/* <img
           src={channelIcon?.url}
           alt=""
-        />
+        /> */}
+        <LazyLoadImage src={channelIcon?.url}
+          alt="" effect="blur" />
         <p>{channelTitle}</p>
       </div>
     </div>

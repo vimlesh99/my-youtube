@@ -6,6 +6,7 @@ import homeScreenVideos from "./reducers/video.reducer";
 
 
 const initialState ={};
+
 const rootReducer = combineReducers({
   auth :authReducer,
   homeVideos: homeScreenVideos,

@@ -30,10 +30,10 @@ const dispatch = useDispatch()
     <MdHistory size={23}/>
     <span>History</span>
     </li>
-    <li>
+    {/* <li>
     <MdHistory size={23}/>
     <span>History</span>
-    </li>
+    </li> */}
     <li><MdLibraryBooks size={23}/><span>Library</span></li>
     <li><MdSentimentDissatisfied size={23}/><span>I don't Know</span></li>
     <hr />

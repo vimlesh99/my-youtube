@@ -14,7 +14,7 @@ const LoginScreen = () => {
 
      const handleLogin =()=>{
        dispatch(login())
-      console.log(login()) 
+      // console.log(login()) 
      };
  const navigate = useNavigate();
 

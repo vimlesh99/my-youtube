@@ -41,11 +41,11 @@ function App() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!accessToken && !loading) {
-      navigate("/auth");
-    }
-  }, [accessToken, navigate]);
+  // useEffect(() => {
+  //   if (!accessToken && !loading) {
+  //     navigate("/auth");
+  //   }
+  // }, [accessToken, navigate]);
 
   return (
     <Routes>

@@ -3,16 +3,18 @@ import {auth } from "../../firebase.js";
 import { GoogleAuthProvider ,signInWithPopup, signOut   } from "firebase/auth";
 import { LOAD_PROFILE, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOG_OUT } from "../actionType.js";
 import { getAdditionalUserInfo } from "firebase/auth";
+
+
 export const login = () => async (dispatch )=> {
     try{
     dispatch({
         type:LOGIN_REQUEST
     })
 
-     const provider =new GoogleAuthProvider();
+     const provider = new GoogleAuthProvider();
      provider.addScope("https://www.googleapis.com/auth/youtube.force-ssl")
-     const result =await signInWithPopup(auth,provider);
-    //  console.log(result)
+      const result =await signInWithPopup(auth,provider);
+     console.log(result)
      const credential = GoogleAuthProvider.credentialFromResult(result);
     //  console.log(credential)
      const accessToken = credential.accessToken;
