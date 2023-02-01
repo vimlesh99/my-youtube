@@ -7,6 +7,7 @@ import { AiFillEye } from "react-icons/ai";
 import request from "../../api";
 import "./_videos.scss";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -73,8 +74,13 @@ setChannelIcon(items[0].snippet.thumbnails.default)
     get_Channel_Icon();
   },[channelId]);
 
+  const navigate = useNavigate()
+  const videoHanddelClick = () =>{
+    navigate(`/watch/${videoId}`)
+  }
+
   return (
-    <div className="video">
+    <div className="video"  onClick={videoHanddelClick}>
       <div className="video__top">
         {/* <img
           src={medium.url}

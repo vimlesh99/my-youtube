@@ -5,6 +5,9 @@ import {
   HOME_VIDEOS_FAIL,
   HOME_VIDEOS_REQUEST,
   HOME_VIDEOS_SUCCESS,
+  WATCHSCREEN_VIDEOID_FAIL,
+  WATCHSCREEN_VIDEOID_REQUEST,
+  WATCHSCREEN_VIDEOID_SUCCESS,
 } from "../actionType";
 
 const homeScreenVideos = (
@@ -52,4 +55,39 @@ const homeScreenVideos = (
   }
 };
 
+
+export const watchScreenVideoReducer =(
+  state={
+    loading:true,
+    video:null,
+  },action)=>{
+
+const {payload , type} =action;
+
+switch(type){
+
+  case WATCHSCREEN_VIDEOID_REQUEST:
+    return {
+      ...state,
+      loading:true
+    };
+
+
+    case WATCHSCREEN_VIDEOID_SUCCESS:
+      return{
+        ...state,
+        video:payload,
+        loading:false 
+      };
+
+      case WATCHSCREEN_VIDEOID_FAIL:
+        return{
+          ...state,
+          message:payload
+        }
+
+   default: return state
+}
+
+}
 export default homeScreenVideos;

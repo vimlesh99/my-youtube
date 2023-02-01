@@ -1,5 +1,6 @@
+import { useParams } from "react-router-dom";
 import request from "../../api"
-import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS } from "../actionType"
+import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, WATCHSCREEN_VIDEOID_FAIL, WATCHSCREEN_VIDEOID_REQUEST, WATCHSCREEN_VIDEOID_SUCCESS } from "../actionType"
 
 const getPopulerVideo = ()=> async (dispatch,getState)=>{
 try {
@@ -82,3 +83,38 @@ export const getVideoByCategory = (keyword)=> async (dispatch,getState)=>{
     
     }
     
+
+export const getVideoById =(id)=> async  dispatch => {
+
+   
+
+    try{
+        dispatch(
+            {
+                type:WATCHSCREEN_VIDEOID_REQUEST,
+            }
+        )
+
+     const {data} =  await request('/videos',
+        {
+            params:{
+                part:"snippet,statistics",
+                id:id,
+            }
+        })
+
+        dispatch({
+            type:WATCHSCREEN_VIDEOID_SUCCESS,
+            payload:data.items[0]
+        })
+
+    }catch(error){
+     console.log(error.message)
+
+     dispatch({
+        type:WATCHSCREEN_VIDEOID_FAIL,
+        payload:error.message
+     })
+    }
+
+}
