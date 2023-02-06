@@ -14,7 +14,7 @@ import "./watchscreen.scss";
 const WatchScreen = () => {
 
   const {loading , video} = useSelector(state=>state.watchScreenVideo)
-  const{video:relatedVideo}=useSelector(state=>state.relatedVideo);
+  const{loading:load,video:relatedVideo}=useSelector(state=>state.relatedVideo);
 
   const {id} = useParams()
 
@@ -39,7 +39,7 @@ const WatchScreen = () => {
     <Comments  videoId={id}   commentCount={video?.statistics?.commentCount}/>
     </Col>
     <Col lg={3}>
-   { relatedVideo?.map((relVideo,index)=>{
+   {!load && relatedVideo?.filter(video=>video.snippet).map((relVideo,index)=>{
     return (
       <VideoHorizontal videoList={relVideo} key={index} />
     )
