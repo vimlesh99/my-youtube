@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import request from "../../api"
-import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, WATCHSCREEN_VIDEOID_FAIL, WATCHSCREEN_VIDEOID_REQUEST, WATCHSCREEN_VIDEOID_SUCCESS } from "../actionType"
+import {  HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, RELATED_VIDEOBY_ID_FAIL, RELATED_VIDEOBY_ID_REQUEST, RELATED_VIDEOBY_ID_SUCCESS, WATCHSCREEN_VIDEOID_FAIL, WATCHSCREEN_VIDEOID_REQUEST, WATCHSCREEN_VIDEOID_SUCCESS } from "../actionType"
 
 const getPopulerVideo = ()=> async (dispatch,getState)=>{
 try {
@@ -17,14 +17,12 @@ try {
         pageToken: getState().homeVideos.nextPageToken,
     },
    })
-
-   const videoData =res.data.items;
-   console.log(videoData);
-console.log(res);
+console.log(res)
+   
 dispatch({
     type:HOME_VIDEOS_SUCCESS,
     payload:{
-        videos:videoData,
+        videos:res.data.items,
         nextPageToken:res.data.nextPageToken,
         category:"All"
     }
@@ -40,15 +38,13 @@ dispatch({
 
 }
 
-export default getPopulerVideo;
-
 
 export const getVideoByCategory = (keyword)=> async (dispatch,getState)=>{
     try {
         dispatch({
             type:HOME_VIDEOS_REQUEST
         });
-
+        
         // console.log(getState().homeVideos.nextPageToken)
         console.log(keyword)
        const res = await request("/search",{
@@ -118,3 +114,44 @@ export const getVideoById =(id)=> async  dispatch => {
     }
 
 }
+
+export const getRelatedVideoById =(id)=> async  dispatch => {
+
+
+    try{
+        dispatch(
+            {
+                type:RELATED_VIDEOBY_ID_REQUEST,
+            }
+        )
+
+     const {data} =  await request('/search',
+        {
+            params:{
+                part:"snippet",
+                relatedToVideoId:id,
+                maxResults:15,
+                type:"video",
+            }
+        })
+
+
+        console.log(data);
+        dispatch({
+            type:RELATED_VIDEOBY_ID_SUCCESS,
+            payload:data.items,
+        })
+
+    }catch(error){
+     console.log(error.response.data.message)
+
+     dispatch({
+        type:RELATED_VIDEOBY_ID_FAIL,
+        payload:error.response.data.message
+     })
+    }
+
+}
+
+
+export default getPopulerVideo;

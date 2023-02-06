@@ -1,17 +1,17 @@
 import React from 'react';
 import moment from 'moment/moment';
 import "./comment.scss"
-const Comment = () => {
+const Comment = ({commentProp}) => {
   return (
     <div className='comment p-2 d-flex  '>
-      <img src="https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png" alt="" 
-          className='rounded-circle mr-3'
+      <img src={commentProp.authorProfileImageUrl} alt="" 
+          className='rounded-circle mx-1'
         />
         <div className="comment__body">
             <p className="comment__header mb-1">
-                vimlesh kumar•{moment("2021-05-05").fromNow()}
+                {commentProp.authorDisplayName} • {moment(commentProp.publishedAt).fromNow()}
             </p>
-           <p className='mb-0'>nice video</p>
+           <p className='mb-0'>{commentProp.textOriginal}</p>
         </div>
     </div>
   )
