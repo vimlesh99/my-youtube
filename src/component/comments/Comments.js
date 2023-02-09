@@ -13,8 +13,12 @@ const Comments = ({videoId,commentCount}) => {
  const cmt = useSelector(state=>state.commentList.commentList)
  console.log(cmt)
 
-//  const _comments =[];
- const _comments =  cmt?.map(comment=>comment.snippet.topLevelComment.snippet)
+
+//  const [commentData, setComment] = useState([])
+ const _comments =[];
+//  const _comments = cmt?.map((com)=>{return com.snippet.topLevelComment.snippet})
+
+
 console.log(_comments)
   const dispatch = useDispatch()
 

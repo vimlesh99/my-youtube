@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import request from "../../api"
-import {  HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, RELATED_VIDEOBY_ID_FAIL, RELATED_VIDEOBY_ID_REQUEST, RELATED_VIDEOBY_ID_SUCCESS, WATCHSCREEN_VIDEOID_FAIL, WATCHSCREEN_VIDEOID_REQUEST, WATCHSCREEN_VIDEOID_SUCCESS } from "../actionType"
+import {  HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, RELATED_VIDEOBY_ID_FAIL, RELATED_VIDEOBY_ID_REQUEST, RELATED_VIDEOBY_ID_SUCCESS, SEARCHED_VIDEOBY_FAIL, SEARCHED_VIDEOBY_REQUEST, SEARCHED_VIDEOBY_SUCCESS, WATCHSCREEN_VIDEOID_FAIL, WATCHSCREEN_VIDEOID_REQUEST, WATCHSCREEN_VIDEOID_SUCCESS } from "../actionType"
 
 const getPopulerVideo = ()=> async (dispatch,getState)=>{
 try {
@@ -153,5 +153,42 @@ export const getRelatedVideoById =(id)=> async  dispatch => {
 
 }
 
+export const getVideoBySearch = (keyword)=> async (dispatch)=>{
+    try {
+        dispatch({
+            type:SEARCHED_VIDEOBY_REQUEST
+        });
+        
+       
+        console.log(keyword)
+       const res = await request("/search",{
+        params:{
+            part:"snippet",
+            maxResults:20,
+            q:keyword,
+            type:"videos,channnel"
+        },
+       })
+    console.log(res)
+       const videoData =res.data.items;
+       console.log(videoData);
+    console.log(res);
+    dispatch({
+        type:SEARCHED_VIDEOBY_SUCCESS,
+        payload:{
+            videos:videoData,
+            category:keyword,
+        }
+    })
+    } catch (error) {
+        console.log(error.message)
+        dispatch({
+            type:SEARCHED_VIDEOBY_FAIL,
+            payload:error
+        })
+        
+    }
+    
+    }
 
 export default getPopulerVideo;

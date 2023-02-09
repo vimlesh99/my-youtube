@@ -8,6 +8,9 @@ import {
   RELATED_VIDEOBY_ID_FAIL,
   RELATED_VIDEOBY_ID_REQUEST,
   RELATED_VIDEOBY_ID_SUCCESS,
+  SEARCHED_VIDEOBY_FAIL,
+  SEARCHED_VIDEOBY_REQUEST,
+  SEARCHED_VIDEOBY_SUCCESS,
   WATCHSCREEN_VIDEOID_FAIL,
   WATCHSCREEN_VIDEOID_REQUEST,
   WATCHSCREEN_VIDEOID_SUCCESS,
@@ -57,6 +60,7 @@ const homeScreenVideos = (
       return prevState;
   }
 };
+export default homeScreenVideos;
 
 
 export const watchScreenVideoReducer =(
@@ -129,4 +133,38 @@ switch(type){
 
 }
 
-export default homeScreenVideos;
+export const searchScreenVideo = (state={
+  loading:false,
+  video:[]
+},action)=>{
+
+  const {type ,payload} =action;
+
+  switch(type){
+
+   case SEARCHED_VIDEOBY_REQUEST:
+    return {
+      ...state,
+      loading:true,
+    } 
+
+    case SEARCHED_VIDEOBY_SUCCESS:
+      return {
+        ...state,
+        video:payload,
+        loading:false
+      }
+
+      case SEARCHED_VIDEOBY_FAIL:
+        return {
+          error :payload,
+          ...state
+        }
+
+    default:return state;
+
+  }
+
+}
+
+

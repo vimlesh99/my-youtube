@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Comments from '../../component/comments/Comments'
@@ -27,7 +28,7 @@ const WatchScreen = () => {
 
   return (
    <Row >
-    <Col lg={9} >
+    <Col lg={8} >
     <div className="watchscreen__player">
         <iframe width="100%" height="100%"
         src={`https://www.youtube.com/embed/${id}`}
@@ -38,12 +39,17 @@ const WatchScreen = () => {
    {!loading? <VideoMetaData video={video}  videoId={id}/>:<h5>Loading...</h5>}
     <Comments  videoId={id}   commentCount={video?.statistics?.commentCount}/>
     </Col>
-    <Col lg={3}>
-   {!load && relatedVideo?.filter(video=>video.snippet).map((relVideo,index)=>{
+    <Col lg={4}>
+   {!load ? relatedVideo?.filter(video=>video.snippet).map((relVideo,index)=>{
     return (
-      <VideoHorizontal videoList={relVideo} key={index} />
+      <VideoHorizontal videoList={relVideo} key={relVideo.id.videoId} />
     )
-     })}
+     }):
+     
+     <SkeletonTheme baseColor="#898c8a" highlightColor="#3c4147" >
+      <Skeleton width="100%" height={140} count={15} style={{marginBottom:"0.3rem"}}/>
+      
+      </SkeletonTheme> }
     </Col>
    </Row>
   )

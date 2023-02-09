@@ -66,7 +66,7 @@ const videoId = id?.videoId||id
         },
       });
    
-setChannelIcon(items[0].snippet.thumbnails.default)
+    setChannelIcon(items[0].snippet.thumbnails.default)
 
       // console.log(items);
     };

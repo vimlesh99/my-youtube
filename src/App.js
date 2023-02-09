@@ -7,6 +7,7 @@ import HomeScreen from "./screen/homeScreen/HomeScreen";
 import Sidebar from "./component/sidebar/Sidebar";
 import "./_app.scss";
 import LoginScreen from "./screen/loginScreen/LoginScreen";
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import {
   BrowserRouter as Router,
@@ -16,6 +17,7 @@ import {
 } from "react-router-dom";
 import { useSelector } from "react-redux";
 import WatchScreen from "./screen/watchScreen/WatchScreen";
+import SearchScreen from "./screen/searchscreen/SearchScreen";
 
 const Layout = ({ children }) => {
   const [sidebar, setToggelSidebar] = useState(false);
@@ -60,7 +62,9 @@ function App() {
         }
       ></Route>
       <Route path="/auth" exact element={<LoginScreen />} />
-      <Route path="/search" exact element={<Layout>Search result</Layout>} />
+      <Route path="/search/:query" exact element={<Layout>
+        <SearchScreen/>
+      </Layout>} />
       <Route
         path="*"
         element={
